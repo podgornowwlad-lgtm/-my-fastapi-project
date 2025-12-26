@@ -1,10 +1,17 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
+import sqlite3
+from pathlib import Path
 
-DATABASE_URL = "sqlite:///./data/todo.db"
+# Путь к базе данных в томе
+DB_PATH = Path("data/shorturls.db")
 
-engine = create_engine(
-    DATABASE_URL, connect_args={"check_same_thread": False}
-)
-SessionLocal = sessionmaker(bind=engine, autoflush=False)
-Base = declarative_base()
+def init_db():
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS urls (
+            short_id TEXT PRIMARY KEY,
+            full_url TEXT NOT NULL
+        )
+    """)
+    conn.commit()
+    conn.close()
