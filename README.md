@@ -77,7 +77,47 @@
 | GET | `/stats/{short_id}` | Информация о ссылке |
 
 ---
+## Локальный запуск
 
+### ToDo-сервис
+
+```bash
+cd todo_app
+
+python -m venv .venv
+# Linux/macOS
+source .venv/bin/activate  
+# Windows PowerShell
+# .venv\Scripts\Activate.ps1
+
+pip install -r requirements.txt
+
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
+
+Сервис будет доступен по адресу: [http://localhost:8000](http://localhost:8000)
+
+---
+
+### URL Shortener
+
+```bash
+cd shorturl_app
+
+python -m venv .venv
+# Linux/macOS
+source .venv/bin/activate  
+# Windows PowerShell
+# .venv\Scripts\Activate.ps1
+
+pip install -r requirements.txt
+
+uvicorn main:app --reload --host 0.0.0.0 --port 8001
+```
+
+Сервис будет доступен по адресу: [http://localhost:8001](http://localhost:8001)
+
+---
 ## Запуск с использованием Docker
 
 ```bash
@@ -87,7 +127,12 @@ docker volume create shorturl_data
 docker run -d -p 8000:80 -v todo_data:/app/data todo-service
 docker run -d -p 8001:80 -v shorturl_data:/app/data shorturl-service
 ```
+## API документация
 
+После запуска сервисов автоматическая интерактивная документация доступна по адресам:
+
+- ToDo сервис: http://localhost:8000/docs
+- URL Shortener сервис: http://localhost:8001/docs
 ---
 
 ## Вывод
